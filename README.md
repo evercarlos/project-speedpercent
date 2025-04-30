@@ -27,7 +27,7 @@ Este microservicio tiene como objetivo calcular el porcentaje entre dos números
 - Clonar el repositorio:
 
 ```bash
-  git clone https://github.com/evercarlos/project-smartcalc.git
+  git clone https://github.com/evercarlos/project-speedpercent.git
  ```
 
 - Entrar en el directorio del proyecto:
