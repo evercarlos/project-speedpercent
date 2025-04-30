@@ -1,0 +1,65 @@
+version: "3.7"
+
+services:
+  speedpercent_pg:
+    image: postgres:14
+    container_name: speedpercent_pg
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dbspeedpercentulator
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - speedpercent
+
+  speedpercent_redis:
+    image: redis:6.2.6
+    container_name: speedpercent_redis
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - speedpercent
+
+  speedpercent_mock:
+    image: wiremock/wiremock:3.7.0
+    container_name: speedpercent_mock
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./micro-mock/__files:/home/wiremock/__files
+      - ./micro-mock/mappings:/home/wiremock/mappings
+    command: --verbose
+    networks:
+      - speedpercent
+
+  micro_speedpercent:
+    container_name: micro_speedpercent
+    depends_on:
+      - speedpercent_pg
+      - speedpercent_redis
+      - speedpercent_mock
+    build:
+      context: ./speedpercent/
+      dockerfile: Dockerfile
+    ports:
+      - "9002:8080"
+    environment:
+      - spring.datasource.url=jdbc:postgresql://speedpercent_pg:5432/dbspeedpercentulator
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+      - server.port=8080
+      - spring.redis.host=speedpercent_redis
+      - spring.redis.port=6379
+      - tec.cache.redis.memory.storage.time=30
+      - tec.external.endPoint.percentage=http://speedpercent_mock:8080/calculator
+    restart: always
+    networks:
+      - speedpercent
+
+networks:
+  speedpercent:
+    driver: bridge
