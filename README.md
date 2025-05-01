@@ -1,12 +1,12 @@
 ## MICROSERVICIO DE CÁLCULO DE PORCENTAJE ```SPEEDPERCENT```
 
-Este microservicio tiene como objetivo calcular el porcentaje entre dos números, obteniendo datos desde un servicio externo. Para mejorar el rendimiento, el resultado es almacenado temporalmente en Redis utilizando caché. Además, se implementan ``hilos virtuales`` (Project Loom - Java 21) para lograr una alta concurrencia con bajo consumo de recursos
+Este microservicio tiene como objetivo calcular el porcentaje entre dos números, obteniendo datos desde un servicio externo. Para mejorar el rendimiento, el resultado es almacenado temporalmente en Redis utilizando caché. Además, se implementan **``hilos virtuales`` (Project Loom - Java 21)** para lograr una alta concurrencia con bajo consumo de recursos
 
 ### FUNCIONES
 
-- ``Hilos virtuales (java 21): ``:Se implementa la nueva funcionalidad de hilos virtuales de Java 21 (Project Loom), permitiendo una alta concurrencia con menor uso de recursos.
-- ``Almacenamiento en Caché``: El porcentaje calculado por el servicio externo se guarda en caché en Redis.
-- ``Duración del Cache``: El valor en caché se mantiene durante un período de 30 minutos
+- **Hilos virtuales (Java 21)**: Se implementa la nueva funcionalidad de hilos virtuales de Java 21 (Project Loom), permitiendo una alta concurrencia con menor uso de recursos.
+- **Almacenamiento en Caché**: El porcentaje calculado por el servicio externo se guarda en caché en Redis.
+- **Duración del Cache**: El valor en caché se mantiene durante un período de 30 minutos
 
 ### REQUISITOS
 
