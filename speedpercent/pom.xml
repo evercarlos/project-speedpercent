@@ -118,8 +118,6 @@
     </dependencies>
     <build>
         <plugins>
-            <!--Configuración preview features(features experimentales). No forman parte oficial del lenguaje Java.-->
-            <!-- se configuró asi por los hilos virtuales de java 21. experimental-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -146,7 +144,6 @@
                     <jvmArguments>--enable-preview</jvmArguments>
                 </configuration>
             </plugin>
-            <!--Configuración por defecto para usar feactures estable de java 21-->
             <!--
             <build>
                 <plugins>
